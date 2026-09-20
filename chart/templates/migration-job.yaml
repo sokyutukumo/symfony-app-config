@@ -20,6 +20,7 @@ spec:
       - name: db-migration
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        workingDir: /var/www/html
         command: ["php", "bin/console", "doctrine:migrations:migrate", "--no-interaction"]
         env:
         - name: DATABASE_URL
