@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: symfony-app
-        image: ghcr.io/sokyutukumo/symfony-app:027ba52
+        image: ghcr.io/sokyutukumo/symfony-app:867787a
         ports:
         - containerPort: 80
