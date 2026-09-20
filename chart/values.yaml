@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/sokyutukumo/symfony-app
   pullPolicy: IfNotPresent
-  tag: "94b19ed"
+  tag: "3e8cb36"
 
 service:
   type: ClusterIP
