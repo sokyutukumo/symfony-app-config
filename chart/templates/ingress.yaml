@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Release.Name }}-symfony-app-ingress
   labels:
-    app: {{ .Release.Name }}
+    app: {{ .Release.Name }}-symfony-app
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -27,7 +27,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ $.Release.Name }}
+                name: {{ $.Release.Name }}-symfony-app-service
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}
