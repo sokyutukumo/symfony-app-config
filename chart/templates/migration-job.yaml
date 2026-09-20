@@ -2,12 +2,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Release.Name }}-db-migration
+  name: {{ .Release.Name }}-db-migration-{{ randAlphaNum 5 | lower }}
   annotations:
     # Argo CD のフック設定: Sync (デプロイ) の前に実行する
     argocd.argoproj.io/hook: PreSync
     # 前回の Job を削除してから実行するポリシー
-    # argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   # 失敗時のリトライ回数
   backoffLimit: 2
@@ -21,17 +21,7 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         workingDir: /var/www/html
-        command:
-          - "sh"
-          - "-c"
-          - |
-            echo "=== CURRENT DIRECTORY ==="
-            pwd
-            echo "=== FILE LIST ==="
-            ls -la
-            echo "=== SEARCHING bin/console ==="
-            find / -name "console" 2>/dev/null
-        #command: ["php", "bin/console", "doctrine:migrations:migrate", "--no-interaction"]
+        command: ["php", "bin/console", "doctrine:migrations:migrate", "--no-interaction"]
         env:
         - name: DATABASE_URL
           value: "postgresql://{{ .Values.database.user }}:{{ .Values.database.password }}@{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}?serverVersion=16&charset=utf8"
