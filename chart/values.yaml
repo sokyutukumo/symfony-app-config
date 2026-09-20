@@ -20,4 +20,15 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-  tls: []  
+  tls: [] 
+
+database:
+  enabled: true
+  host: "postgres-service"
+  port: 5432
+  name: "symfony_db"
+  user: "symfony_user"
+  password: "symfony_password" # 実務では Secret 等で管理
+
+migration:
+  enabled: true 
