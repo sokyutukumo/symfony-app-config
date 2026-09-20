@@ -8,3 +8,16 @@ image:
 service:
   type: ClusterIP
   port: 80
+
+ingress:
+  enabled: true
+  className: "nginx" # 使用している Ingress Controller（例: nginx, alb, traefik など）
+  annotations:
+    # クラウドやコントローラーに応じた Annotation を記述（例: Cert-Manager 連携など）
+    # kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: symfony-app.local # ご利用のドメイン名やローカルドメインを指定
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []  
