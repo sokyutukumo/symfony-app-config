@@ -2,12 +2,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Release.Name }}-db-migration-{{ randAlphaNum 5 | lower }}
+  name: {{ .Release.Name }}-db-migration
   annotations:
     # Argo CD のフック設定: Sync (デプロイ) の前に実行する
     argocd.argoproj.io/hook: PreSync
     # 前回の Job を削除してから実行するポリシー
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    # argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   # 失敗時のリトライ回数
   backoffLimit: 2
